@@ -1,24 +1,123 @@
-x-swagger-router-controller: users
-get:
-  description: Say Hello.
-  operationId: hiWorld
-  parameters:
-    - name: userName
-      required: true
-      type: string
-      in: path
-    - name: age
-      required: true
-      type: number
-      in: path
-  responses:
-    "200":
-      description: Success
-      schema:
-        type: object
-        required:
-          - greetings
-        properties:
-          greetings:
-            type: string
-            description: "How we should greet our new friend"
+x-swagger-router-controller: rides
+/:
+  get:
+    responses:
+      200:
+        description:  List all rides
+        schema:
+          title: Rides
+          type: array
+          items:
+            $ref: '#/definitions/Rides'
+  post:
+    parameters:
+      - name: price
+        in: body
+        description: The final price of the ride
+        type: Number
+        required: true
+      - name: pickup_location
+        in: body
+        description: The latitude and longitude of the pickup location
+        type: array
+        items:
+          {
+            "type": "Number"
+          }
+        required: true
+      - name: arrival_location
+        in: body
+        description: The latitude and longitude of the arrival location
+        type: array
+        items:
+          {
+            "type": "Number"
+          }
+        required: true
+      - name: user
+        in: body
+        description: The id of the user associated to this ride
+        type: ObjectId
+        required: true
+    responses:
+      200:
+        description: The new Ride
+        schema:
+          title: Rides
+          type: {
+            $ref: '#/definitions/Rides'
+          }
+/{idRide}:
+  put:
+    parameters:
+      - name: id
+        in: path
+        description: The id of the ride
+        type: ObjectId
+        required: true
+      - name: price
+        in: body
+        description: The final price of the ride
+        type: Number
+        required: true
+      - name: pickup_location
+        in: body
+        description: The latitude and longitude of the pickup location
+        type: array
+        items:
+          {
+            "type": "Number"
+          }
+        required: true
+      - name: arrival_location
+        in: body
+        description: The latitude and longitude of the arrival location
+        type: array
+        items:
+          {
+            "type": "Number"
+          }
+        required: true
+      - name: user
+        in: body
+        description: The id of the user associated to this ride
+        type: ObjectId
+        required: true
+    responses:
+      200:
+        description: The updated Ride
+        schema:
+          title: Rides
+          type: {
+            $ref: '#/definitions/Rides'
+          }
+  delete:
+    parameters:
+      - name: id
+        in: path
+        description: The id of the ride
+        type: ObjectId
+        required: true
+    responses:
+      200:
+        description: Delete the ride
+definitions:
+Ride:
+  type: object
+  properties:
+    price:
+      type: Number
+    pickup_location:
+      type: array
+      items:
+        {
+          "type": "Number"
+        }
+    arrival_location:
+      type: array
+      items:
+        {
+          "type": "Number"
+        }
+    user:
+      type: ObjectId
