@@ -20,5 +20,9 @@ produces:
 paths:
   /hello/{userName}/{age}:
     $ref: './hello/hello.yaml'
-  /users/{userName}/{age}:
+  /users/:
     $ref: './users/users.yaml'
+  /statuses/:
+    $ref: './statuses/statuses.yaml'
+  /rides/:
+    $ref: './rides/rides.yaml'
